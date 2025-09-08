@@ -1,7 +1,3 @@
-// create server
-
-require("dotenv").config();
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth.route");
@@ -15,6 +11,6 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.use("/api/auth/user", authRoutes);
+app.use("/api/auth", authRoutes);
 
 module.exports = app;
