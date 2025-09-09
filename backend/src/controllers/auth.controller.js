@@ -115,7 +115,7 @@ async function registerFoodPartner(req, res) {
 }
 
 async function loginFoodPartner(req, res) {
-  const { email, passsword } = req.body;
+  const { email, password } = req.body;
 
   const foodPartner = await foodPartnerModel.findOne({ email });
 
@@ -123,9 +123,9 @@ async function loginFoodPartner(req, res) {
     return res.status(400).json({ message: "Food partner not found" });
   }
 
-  const verifyPassword = await bcrypt.compare(passsword, foodPartner.password);
+  const isPasswordVadlid = await bcrypt.compare(password, foodPartner.password);
 
-  if (!verifyPassword) {
+  if (!isPasswordVadlid) {
     return res.status(400).json({ message: "Incorrect password" });
   }
 
@@ -144,7 +144,7 @@ async function loginFoodPartner(req, res) {
 
 async function logoutFoodPartner(req, res) {
   res.clearCookie("token");
-  res.status(200), json({ message: "Food partner logout successfully" });
+  res.status(200).json({ message: "Food partner logout successfully" });
 }
 
 module.exports = {
