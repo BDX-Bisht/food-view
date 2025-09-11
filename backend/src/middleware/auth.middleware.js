@@ -1,5 +1,6 @@
 const foodPartnerModel = require("../models/foodpartner.model");
 const jwt = require("jsonwebtoken");
+const userModel = require("../models/user.model");
 
 const jsonSecret = process.env.JWT_SECRET;
 
@@ -23,4 +24,23 @@ async function foodPartnerAuthMiddleware(req, res, next) {
   }
 }
 
-module.exports = { foodPartnerAuthMiddleware };
+async function userAuthMiddleware(req, res, next) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "Authorization failed" });
+  }
+
+  try {
+    // verfiy token
+    const decodeToken = jwt.verify(token, jsonSecret);
+
+    const user = await userModel.findById(decodeToken.id);
+    req.user = user;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Authorization failed" });
+  }
+}
+
+module.exports = { foodPartnerAuthMiddleware, userAuthMiddleware };

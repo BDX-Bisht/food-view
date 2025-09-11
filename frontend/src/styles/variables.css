@@ -1,0 +1,36 @@
+/* Centralized CSS variables with system light/dark support */
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #0f1720;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --primary-contrast: #ffffff;
+    --accent: #10b981;
+    --input-border: 1px solid rgba(15, 23, 32, 0.06);
+    --placeholder: rgba(15, 23, 32, 0.35);
+    --radius: 12px;
+    --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+    --glass: rgba(255, 255, 255, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* subtle layered gradient for dark mode */
+        --bg: linear-gradient(135deg, #041428 0%, #071026 50%, #0b2034 100%);
+        /* make card distinct but in the same blue/teal family */
+        --card: rgba(11, 30, 48, 0.75);
+        /* semi-opaque card on top of gradient */
+        --card-border: 1px solid rgba(255, 255, 255, 0.06);
+        --text: #e6eef8;
+        --muted: #9aa6b2;
+        --primary: #60a5fa;
+        --primary-contrast: #02224b;
+        --accent: #34d399;
+        --input-border: 1px solid rgba(255, 255, 255, 0.12);
+        --placeholder: rgba(230, 238, 248, 0.6);
+        --radius: 12px;
+        --shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+        --glass: rgba(10, 18, 30, 0.4);
+    }
+}
