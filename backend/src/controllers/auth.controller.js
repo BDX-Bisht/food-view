@@ -60,7 +60,7 @@ async function loginUser(req, res) {
   const isPasswordVadlid = await bcrypt.compare(password, user.passsword);
 
   if (!isPasswordVadlid) {
-    return res.status(400).json({ messsage: "Invalid password" });
+    return res.status(400).json({ message: "Invalid password" });
   }
 
   const token = jwt.sign({ id: user._id }, jsonSecret);
@@ -68,7 +68,7 @@ async function loginUser(req, res) {
   res.cookie("token", token);
 
   res.status(200).json({
-    messsage: "User logged in successfully",
+    message: "User logged in successfully",
     user: {
       _id: user._id,
       email: user.email,
@@ -85,7 +85,7 @@ async function logOutUser(req, res) {
 }
 
 async function registerFoodPartner(req, res) {
-  const { name, email, password } = req.body;
+  const { name, email, password, contactName, phone, address } = req.body;
 
   const isUserAlreadyExist = await foodPartnerModel.findOne({ email });
 
@@ -99,6 +99,9 @@ async function registerFoodPartner(req, res) {
     email,
     name,
     password: hashPasssword,
+    contactName,
+    phone,
+    address,
   });
 
   const token = jwt.sign({ id: foodPartner._id }, jsonSecret);
@@ -110,6 +113,8 @@ async function registerFoodPartner(req, res) {
       _id: foodPartner._id,
       name: foodPartner.name,
       email: foodPartner.email,
+      address: foodPartner.address,
+      contactName: foodPartner.contactName,
     },
   });
 }
